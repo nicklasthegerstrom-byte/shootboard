@@ -1,0 +1,28 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from database import Base, engine
+from models.shoot import Shoot
+
+from routes.shoot_routes import router as shoot_router
+from routes.upload_routes import router as upload_router
+
+
+app = FastAPI(title="ShootBoard API")
+
+Base.metadata.create_all(bind=engine)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(shoot_router)
+app.include_router(upload_router)
+
+@app.get("/")
+def root():
+    return {"message": "ShootBoard API is running 🚀"}
