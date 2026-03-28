@@ -2,7 +2,7 @@
 
 ShootBoard is a fullstack application for planning and managing photo shoots.
 
-Users can create shoots, upload inspiration images, automatically generate a collage, and keep track of shoot status.
+Users can create shoots, upload inspirational images and automatically generate a collage, and keep track of shoot status.
 
 ---
 
