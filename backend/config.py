@@ -15,4 +15,4 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"]
 
 # Max file size (bytes) → 5MB
-MAX_FILE_SIZE = 5 * 1024 * 1024
+MAX_FILE_SIZE = 20 * 1024 * 1024

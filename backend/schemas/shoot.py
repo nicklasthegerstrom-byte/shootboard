@@ -1,17 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ShootCreate(BaseModel):
-    title: str
-    description: str
-    image_path: str
-    location: str
-    shoot_date: str
-    status: str
+    title: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    image_path: str = Field(min_length=1)
+    location: str = Field(min_length=1)
+    shoot_date: str = Field(min_length=1)
 
 
 class ShootResponse(ShootCreate):
     id: int
+    status: str
 
     class Config:
         from_attributes = True

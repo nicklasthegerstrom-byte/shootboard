@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0;            /* ❗ viktigt */
+  border-bottom: 1px solid #ddd;
+}
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  padding-right: 2rem;  
+}
+
+.header-nav span {
+  cursor: pointer;
+  color: #666;
+}
+
+.header-nav span:hover {
+  color: black;
+}
+
+.header-nav .active {
+  color: black;
+  font-weight: bold;
+}
+
+.logo {
+  height: 150px;
+}

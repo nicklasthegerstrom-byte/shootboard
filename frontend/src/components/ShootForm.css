@@ -1,0 +1,46 @@
+.shoot-form {
+  display: flex;
+  flex-direction: column;   /* ← detta gör att fälten hamnar ovanpå */
+  gap: 1rem;
+  max-width: 500px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-group textarea {
+  resize: none;
+  overflow: hidden;
+}
+
+.shoot-form button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-group select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+}

@@ -16,8 +16,8 @@ def create_shoot(shoot: ShootCreate):
         image_path=shoot.image_path,
         location=shoot.location,
         shoot_date=shoot.shoot_date,
-        status=shoot.status,
-    )
+        status="planned",
+        )
 
     db.add(new_shoot)
     db.commit()

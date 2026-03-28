@@ -54,4 +54,4 @@ async def make_collage(
     except Exception:
         raise HTTPException(status_code=500, detail="Failed to save image")
 
-    return {"message": f"Image saved as {filename}"}
+    return {"image_path": f"/uploads/{filename}"}
