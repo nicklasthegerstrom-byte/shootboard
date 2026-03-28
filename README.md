@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# shootboard
-=======
 # ShootBoard
 
 ShootBoard is a fullstack application for planning and managing photo shoots.
@@ -124,4 +121,3 @@ Make sure both backend and frontend are running at the same time.
 
 Nicklas Thegerström
 nicklas.thegerstrom@gmail.com
->>>>>>> aa938ca (gitignore)
