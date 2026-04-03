@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import CreateShoot from "./pages/CreateShoot";
 import ViewShoots from "./pages/ViewShoots";
+import CalendarView from "./pages/CalendarView";
 
 function App() {
   const [page, setPage] = useState("home");
@@ -38,6 +39,9 @@ function App() {
             setEditingShoot={setEditingShoot}
           />
         )}
+
+        {page === "calendar" && <CalendarView />}
+        
       </main>
     </div>
   );

@@ -37,6 +37,17 @@ function Header({ setPage, currentPage, setSelectedShootId, setEditingShoot }) {
         >
           View all Shoots
         </span>
+
+        <span
+          className={currentPage === "calendar" ? "active" : ""}
+          onClick={() => {
+            setSelectedShootId(null);
+            setEditingShoot(null);
+            setPage("calendar");
+          }}
+        >
+          Calendar View
+        </span>
       </nav>
     </header>
   );
