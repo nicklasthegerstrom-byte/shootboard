@@ -25,8 +25,6 @@ Users can create shoots, upload inspirational images and automatically generate 
 
 - Search/filter shoots by title
 
-- Sort shoots by shoot date (nearest / latest)
-
 - Calendar view:
   - Monthly overview of shoots
   - Days with shoots are marked with a dot
