@@ -1,10 +1,8 @@
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).resolve().parent
 
-# Database
-DATABASE_URL = f"sqlite:///{BASE_DIR / 'shootboard.db'}"
+BASE_DIR = Path(__file__).resolve().parent
 
 
 # Uploads
