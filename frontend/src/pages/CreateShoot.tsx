@@ -1,17 +1,43 @@
 import { useState } from "react";
 import ShootForm from "../components/ShootForm";
 
+type Shoot = {
+  id: number;
+  title: string;
+  description: string;
+  image_path: string;
+  location: string;
+  shoot_date: string;
+  status: string;
+};
+
+type ShootFormData = {
+  title: string;
+  description: string;
+  location: string;
+  shoot_date: string;
+  status: string;
+  files: FileList | null;
+};
+
+type CreateShootProps = {
+  setPage: (page: string) => void;
+  setSelectedShootId: (id: number | null) => void;
+  editingShoot: Shoot | null;
+  setEditingShoot: (shoot: Shoot | null) => void;
+};
+
 function CreateShoot({
   setPage,
   setSelectedShootId,
   editingShoot,
   setEditingShoot,
-}) {
+}: CreateShootProps) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(data) {
+  async function handleSubmit(data: ShootFormData) {
     setMessage("");
     setError("");
 
@@ -33,7 +59,6 @@ function CreateShoot({
     setLoading(true);
 
     try {
-      // EDIT MODE → PATCH
       if (editingShoot) {
         const updatedShoot = {
           title: data.title,
@@ -59,7 +84,7 @@ function CreateShoot({
           throw new Error(errorData.detail || "Failed to update shoot");
         }
 
-        const patchResult = await patchResponse.json();
+        const patchResult: Shoot = await patchResponse.json();
 
         setMessage("Shoot updated successfully.");
         setSelectedShootId(patchResult.id);
@@ -68,12 +93,13 @@ function CreateShoot({
         return;
       }
 
-      // CREATE MODE → upload collage first
       const collageFormData = new FormData();
 
-      Array.from(data.files).forEach((file) => {
-        collageFormData.append("files", file);
-      });
+      if (data.files) {
+        Array.from(data.files).forEach((file: File) => {
+          collageFormData.append("files", file);
+        });
+      }
 
       const collageResponse = await fetch("http://localhost:8000/upload-collage", {
         method: "POST",
@@ -85,7 +111,7 @@ function CreateShoot({
         throw new Error(errorData.detail || "Failed to create collage");
       }
 
-      const collageResult = await collageResponse.json();
+      const collageResult: { image_path: string } = await collageResponse.json();
 
       const newShoot = {
         title: data.title,
@@ -108,7 +134,7 @@ function CreateShoot({
         throw new Error(errorData.detail || "Failed to save shoot");
       }
 
-      const shootResult = await shootResponse.json();
+      const shootResult: Shoot = await shootResponse.json();
 
       setMessage("Shoot saved successfully.");
       setSelectedShootId(shootResult.id);

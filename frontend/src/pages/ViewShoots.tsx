@@ -1,15 +1,35 @@
 import { useEffect, useState } from "react";
 import "./ViewShoots.css";
 
-function ViewShoots({ selectedShootId, setPage, setEditingShoot }) {
-  const [shoots, setShoots] = useState<any[]>([]);
+type Shoot = {
+  id: number;
+  title: string;
+  description: string;
+  image_path: string;
+  location: string;
+  shoot_date: string;
+  status: string;
+};
+
+type ViewShootsProps = {
+  selectedShootId: number | null;
+  setPage: (page: string) => void;
+  setEditingShoot: (shoot: Shoot | null) => void;
+};
+
+function ViewShoots({
+  selectedShootId,
+  setPage,
+  setEditingShoot,
+}: ViewShootsProps) {
+  const [shoots, setShoots] = useState<Shoot[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function fetchShoots() {
       try {
         const shootsResponse = await fetch("http://localhost:8000/shoots");
-        const shootsData = await shootsResponse.json();
+        const shootsData: Shoot[] = await shootsResponse.json();
         setShoots(shootsData);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -41,68 +61,68 @@ function ViewShoots({ selectedShootId, setPage, setEditingShoot }) {
     }
   }
 
-  function handleEdit(shoot: any) {
+  function handleEdit(shoot: Shoot) {
     setEditingShoot(shoot);
     setPage("create");
   }
 
   const sortedShoots = [...shoots].sort((a, b) => b.id - a.id);
 
-const filteredShoots = sortedShoots.filter((shoot) =>
-  shoot.title.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const filteredShoots = sortedShoots.filter((shoot) =>
+    shoot.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-const visibleShoots =
-  selectedShootId === null
-    ? filteredShoots
-    : filteredShoots.filter((shoot) => shoot.id === selectedShootId);
+  const visibleShoots =
+    selectedShootId === null
+      ? filteredShoots
+      : filteredShoots.filter((shoot) => shoot.id === selectedShootId);
 
- 
-    return (
-  <div>
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search shoots..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-    </div>
+  return (
+    <div>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search shoots..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
 
-    <div className="shoots-container">
-      {visibleShoots.map((shoot) => (
-        <div key={shoot.id} className="shoot-card">
-          <img
-            src={`http://localhost:8000${shoot.image_path}`}
-            alt={shoot.title}
-            className="shoot-image"
-          />
+      <div className="shoots-container">
+        {visibleShoots.map((shoot) => (
+          <div key={shoot.id} className="shoot-card">
+            <img
+              src={`http://localhost:8000${shoot.image_path}`}
+              alt={shoot.title}
+              className="shoot-image"
+            />
 
-          <div className="shoot-content">
-            <h2>{shoot.title}</h2>
+            <div className="shoot-content">
+              <h2>{shoot.title}</h2>
 
-            <p className="meta">
-              {shoot.location} · {shoot.shoot_date}
-            </p>
+              <p className="meta">
+                {shoot.location} · {shoot.shoot_date}
+              </p>
 
-            <p className="description">{shoot.description}</p>
-            <p className="meta">
+              <p className="description">{shoot.description}</p>
+              <p className="meta">
                 Status: {shoot.status.charAt(0).toUpperCase() + shoot.status.slice(1)}
-                </p>
-            <div className="shoot-actions">
+              </p>
+
+              <div className="shoot-actions">
                 <span className="action edit" onClick={() => handleEdit(shoot)}>
-                    Edit
+                  Edit
                 </span>
                 <span className="action delete" onClick={() => handleDelete(shoot.id)}>
-                    Delete
+                  Delete
                 </span>
-                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default ViewShoots;

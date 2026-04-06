@@ -1,7 +1,19 @@
 import logo from "../assets/shootboard.png";
 import "./Header.css";
 
-function Header({ setPage, currentPage, setSelectedShootId, setEditingShoot }) {
+type HeaderProps = {
+  setPage: (page: string) => void;
+  currentPage: string;
+  setSelectedShootId: (id: number | null) => void;
+  setEditingShoot: (shoot: any | null) => void;
+};
+
+function Header({
+  setPage,
+  currentPage,
+  setSelectedShootId,
+  setEditingShoot,
+}: HeaderProps) {
   return (
     <header className="header">
       <img
