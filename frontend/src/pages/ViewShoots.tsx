@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./ViewShoots.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type Shoot = {
   id: number;
   title: string;
@@ -28,7 +30,7 @@ function ViewShoots({
   useEffect(() => {
     async function fetchShoots() {
       try {
-        const shootsResponse = await fetch("http://localhost:8000/shoots");
+        const shootsResponse = await fetch(`${API_URL}/shoots`);
         const shootsData: Shoot[] = await shootsResponse.json();
         setShoots(shootsData);
       } catch (error) {
@@ -47,7 +49,7 @@ function ViewShoots({
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/shoots/${id}`, {
+      const response = await fetch(`${API_URL}/shoots/${id}`, {
         method: "DELETE",
       });
 
@@ -92,7 +94,7 @@ function ViewShoots({
         {visibleShoots.map((shoot) => (
           <div key={shoot.id} className="shoot-card">
             <img
-              src={`http://localhost:8000${shoot.image_path}`}
+              src={`${API_URL}${shoot.image_path}`}
               alt={shoot.title}
               className="shoot-image"
             />

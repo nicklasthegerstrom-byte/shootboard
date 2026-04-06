@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ShootForm from "../components/ShootForm";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type Shoot = {
   id: number;
   title: string;
@@ -69,7 +71,7 @@ function CreateShoot({
         };
 
         const patchResponse = await fetch(
-          `http://localhost:8000/shoots/${editingShoot.id}`,
+          `${API_URL}/${editingShoot.id}`,
           {
             method: "PATCH",
             headers: {
@@ -101,7 +103,7 @@ function CreateShoot({
         });
       }
 
-      const collageResponse = await fetch("http://localhost:8000/upload-collage", {
+      const collageResponse = await fetch(`${API_URL}/upload-collage`, {
         method: "POST",
         body: collageFormData,
       });
@@ -121,7 +123,7 @@ function CreateShoot({
         shoot_date: data.shoot_date,
       };
 
-      const shootResponse = await fetch("http://localhost:8000/shoots", {
+      const shootResponse = await fetch(`${API_URL}/shoots`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

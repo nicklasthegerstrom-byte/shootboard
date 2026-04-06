@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CalendarView.css"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
   const [shoots, setShoots] = useState<any[]>([]);
@@ -10,7 +12,7 @@ function CalendarView() {
   useEffect(() => {
     async function fetchShoots() {
       try {
-        const response = await fetch("http://localhost:8000/shoots");
+        const response = await fetch(`${API_URL}/shoots`);
         const data = await response.json();
         setShoots(data);
       } catch (error) {
@@ -66,7 +68,7 @@ function CalendarView() {
             {shootsForSelectedDate.map((shoot) => (
               <div key={shoot.id} className="shoot-card">
                 <img
-                  src={`http://localhost:8000${shoot.image_path}`}
+                  src={`${API_URL}${shoot.image_path}`}
                   alt={shoot.title}
                   className="shoot-image"
                 />
