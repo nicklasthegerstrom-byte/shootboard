@@ -18,7 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://shootboard-five.vercel.app/",
+        "https://shootboard-git-deploy-nicklasthegerstrom.vercel.app",
         "https://shootboard.nicklasthegerstrom.com",
     ],
     allow_credentials=True,
